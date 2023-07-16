@@ -1,22 +1,28 @@
-# Google Apps Script Cloud Function
+# Google Apps Script Function in Excel
 
-This repository contains a proof of concept of using Google Apps Script as a Cloud Function. The code demonstrates how to handle incoming requests, process the data, and generate a response in the form of an XML document.
+This repository contains a proof of concept of using Google Apps Script as a Custom Cloud Function. The code demonstrates how to handle incoming requests, process the data, and generate a response in the form of an XML document.
+
+## Problem statement
+
+Have you ever been in a situation where you couldn't use VBA's UDF function whether due to your corporate overlord's internal security policy or due to your clients demands? Isn't it frustrating to create multiple rows, sheets or even scrap every thing to try to implement simple VBA function in a cumbersome and inefficient way? Would it be cool if you could offload all VBA's function calculations to somewhere and just get function's result in a cell?
+
+Look no more. This project implements basic functionality required to kickstart the replacement of a VBA's UDF function in Excel. If your formula is not using multidimensional arrays as an input, using this solution you could replace yours VBA function by a javascript one that is executed from google's cloud.
 
 ## Functionality
 
-The main code file, `doGet.gs`, includes the following key features:
+The main code file, `main.gs`, includes the following key features:
 
-- Parsing and processing the data received in the request
-- Formatting numbers based on locale subtags
-- Converting localized strings to numbers
-- Creating an XML document from the processed data
+* Parsing and processing the data received in the request
+* Formatting numbers based on locale subtags
+* Converting localized strings to numbers
+* Creating an XML document from the processed data
 
-The code is organized into separate files to improve modularity and maintainability:
+The code is organized into:
 
-- `main.gs`: Entry point file that contains the `doGet` function, serving as the Cloud Function endpoint.
-- `doGet.gs`: Contains the main logic for processing requests, as well as helper functions.
-- `helpers.gs`: Includes additional helper functions used in `doGet.gs`.
-- `NumberParser.gs`: Defines the `NumberParser` class for parsing strings and converting them to numbers.
+* `main.gs`: Entry point file that contains the `doGet` function, serving as the Cloud Function endpoint.
+* `doGet.gs`: Contains the main logic for processing requests, as well as helper functions.
+* `helpers.gs`: Includes additional helper functions used in `doGet.gs`.
+* `NumberParser.gs`: Defines the `NumberParser` class for parsing strings and converting them to numbers.
 
 ## Usage
 
