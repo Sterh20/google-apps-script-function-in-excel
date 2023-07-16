@@ -13,3 +13,7 @@ node_modules
 
 # Clasp file. Contains secrets.
 /.clasp.json
+
+# Powershell script log files:
+demo/Errors_*.txt
+demo/Success_*.txt

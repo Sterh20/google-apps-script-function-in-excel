@@ -1,5 +1,7 @@
 # By Igors with little modifications
 # Source: https://journeymblog.wordpress.com/2017/01/10/powershell-script-for-removing-personal-info-from-word-excel-and-powerpoint-docs/
+# Dependencies: Office primary interop assemblies. Installed with the Office or with Visual Studio
+# dll's are located in "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15". After instalation of Visiual Studio, this folder can be copied and Visual Studio can be deleted.
 $successlines=@()
 $global:errorlinesexcel=@()
 $global:errorlinesword=@()
@@ -140,14 +142,17 @@ function RemoveModificationProtectionsandPersonalInfoExcel{
 # $path = Select-FolderDialog # choose folder dialor
 #$path='C:\Temp'
 #$path=(Get-Item -Path ".\" -Verbose).FullName
+$pathToCurrentDirectory = $PWD.Path
 $path = $MyInvocation.MyCommand.Path
 $path = Split-Path $path -Parent
 $errorlog = $('{0}\Errors_{1}.txt' -f $path, $('{0:yyyy-MM-dd_HH-mm-ss}' -f (Get-Date)))
 $successlog = $('{0}\Success_{1}.txt' -f $path, $('{0:yyyy-MM-dd_HH-mm-ss}' -f (Get-Date)))
-if ($path -eq $null) {exit}
+if ($null -eq $path) {exit}
+Set-Location -Path "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15"
 Add-Type -AssemblyName Microsoft.Office.Interop.Word
 Add-Type -AssemblyName Microsoft.Office.Interop.Excel
 Add-Type -AssemblyName Microsoft.Office.Interop.Powerpoint
+Set-Location -Path $pathToCurrentDirectory
 $WdRemoveDocType = "Microsoft.Office.Interop.Word.WdRemoveDocInfoType" -as [type]
 $XlRemoveDocType = "Microsoft.Office.Interop.Excel.XlRemoveDocInfoType" -as [type]
 $PpRemoveDocType = "Microsoft.Office.Interop.PowerPoint.PpRemoveDocInfoType" -as [type]
@@ -155,7 +160,7 @@ $wordFiles = Get-ChildItem -Path $path -include *.doc, *.docx -Recurse
 $excelFiles = Get-ChildItem -Path $path -include *.xls, *.xlsx, *.xlsb -Recurse
 $powerpointfiles = Get-ChildItem -Path $path -include *.ppt, *.pptx -Recurse
 #------------------------------------------WORD FILES---------------------------------------------#
-if ($wordFiles -ne $null) {
+if ($null -ne $wordFiles) {
 $objword = New-Object -ComObject word.application
 $objword.visible = $false 
 Write-Host "Processing Word files"
@@ -196,7 +201,7 @@ $documents=$null
 }
  
 #------------------------------------------EXCEL FILES---------------------------------------------#
-if ($excelFiles -ne $null) {
+if ($null -ne $excelFiles) {
 $objexcel = New-Object -ComObject excel.application
 $objexcel.visible = $false  
 $culturebackup=Get-Culture
@@ -239,7 +244,7 @@ Set-Culture $culturebackup
 $documents=$null
 }
 #------------------------------------------POWERPOINT FILES---------------------------------------------#
-if ($powerpointfiles -ne $null) {
+if ($null -ne $powerpointfiles) {
 $objpowerpoint = New-Object -ComObject Powerpoint.Application
 Write-Host "Processing Powerpoint files"
 foreach($obj in $powerpointfiles)
@@ -266,10 +271,10 @@ $objexcel.Quit()
 $objword.Quit()
 } catch {write-host “Killing remaining active applications”}
 #------------------------------------------LOG FILES---------------------------------------------#
-$global:errorlinesexcel | Out-File -FilePath $errorlog
-$global:errorlinesword | Out-File -FilePath $errorlog -Append
-$errorlinespowerpoint | Out-File -FilePath $errorlog -Append
-$successlines | Out-File -FilePath $successlog
+# $global:errorlinesexcel | Out-File -FilePath $errorlog
+# $global:errorlinesword | Out-File -FilePath $errorlog -Append
+# $errorlinespowerpoint | Out-File -FilePath $errorlog -Append
+# $successlines | Out-File -FilePath $successlog
 #------------------------------------------SUMMARY---------------------------------------------#
 Write-Host "Summary:" -ForegroundColor Red
 Write-Host "Processed $($wordFiles.Count+$excelFiles.Count+$powerpointfiles.Count) files"
