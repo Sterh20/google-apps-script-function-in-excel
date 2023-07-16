@@ -4,9 +4,9 @@ This repository contains a proof of concept of using Google Apps Script as a Cus
 
 ## Problem statement
 
-Have you ever been in a situation where you couldn't use VBA's UDF function whether due to your corporate overlord's internal security policy or due to your clients demands? Isn't it frustrating to create multiple rows, sheets or even scrap every thing to try to implement simple VBA function in a cumbersome and inefficient way? Would it be cool if you could offload all VBA's function calculations to somewhere and just get function's result in a cell?
+Have you ever been in a situation where you couldn't use VBA's UDF function, whether due to your corporate overlord's internal security policy or your clients' demands? Isn't it frustrating to create multiple rows, sheets or even scrap everything to try to implement a simple VBA function in a cumbersome and inefficient way? Wouldn't it be cool if you could offload all VBA function calculations to somewhere and just get the function's result in a cell?
 
-Look no more. This project implements basic functionality required to kickstart the replacement of a VBA's UDF function in Excel. If your formula is not using multidimensional arrays as an input, using this solution you could replace yours VBA function by a javascript one that is executed from google's cloud.
+Look no further. This project implements the basic functionality required to kickstart the replacement of a VBA UDF function in Excel. If your formula is not using multidimensional arrays as an input, you would just have to implement your VBA function's logic in JavaScript. As a result, instead of a VBA function that executes on your hardware, you will get a JavaScript function that is executed from Google's hardware.
 
 ## Functionality
 
