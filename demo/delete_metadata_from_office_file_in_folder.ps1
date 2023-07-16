@@ -142,12 +142,12 @@ function RemoveModificationProtectionsandPersonalInfoExcel{
 # $path = Select-FolderDialog # choose folder dialor
 #$path='C:\Temp'
 #$path=(Get-Item -Path ".\" -Verbose).FullName
-$pathToCurrentDirectory = $PWD.Path
 $path = $MyInvocation.MyCommand.Path
 $path = Split-Path $path -Parent
 $errorlog = $('{0}\Errors_{1}.txt' -f $path, $('{0:yyyy-MM-dd_HH-mm-ss}' -f (Get-Date)))
 $successlog = $('{0}\Success_{1}.txt' -f $path, $('{0:yyyy-MM-dd_HH-mm-ss}' -f (Get-Date)))
 if ($null -eq $path) {exit}
+$pathToCurrentDirectory = $PWD.Path
 Set-Location -Path "C:\Program Files (x86)\Microsoft Visual Studio\Shared\Visual Studio Tools for Office\PIA\Office15"
 Add-Type -AssemblyName Microsoft.Office.Interop.Word
 Add-Type -AssemblyName Microsoft.Office.Interop.Excel
