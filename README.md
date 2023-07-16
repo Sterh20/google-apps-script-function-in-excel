@@ -10,14 +10,14 @@ Look no further. This project implements the basic functionality required to kic
 
 ## How it works
 
-The easiest way to understand how this solution works is to examen the [demo](demo/demo.xlsx) excel file. Under each cloud formula's row there is a formula breakdown hidden in a group.
+The easiest way to understand how this solution works is to examine the [demo](demo/demo.xlsx) Excel file. Under each cloud formula's row, there is a hidden formula breakdown in an Excel's group.
 
-1. Apps Script app URL and formula's inputs are baked into one API like URL.
-2. This URL is an input for Excel's `WEBSERVICE` function, which is in Excel since Office 2010. The function makes Get request to Apps Script app.
-3. In the Apps Script app, the function's inputs are converted to proper JavaScript's data types. Data type transformations are mindful if specified about users locale settings for different language compatibility.
-4. After the conversion the data is processed by a function, that we are trying to replace in Excel. In the demo the function is intentionally very simple.
-5. The function's results are converted back to users locale. Then the results are converted to a XML and is sent back to Excel.
-6. The XML result from `WEBSERVICE` Excel function is filtered by `FILTERXML` Excel function and the final result is displayed in the cell. XML was chosen because in plain text case the Get response would need to be converted from text to number format. Also plain text response limits payload to only one item without additional processing.
+1. The Apps Script app URL and formula's inputs are combined into a single API-like URL.
+2. This URL is used as an input for Excel's `WEBSERVICE` function, which has been available in Excel since Office 2010. The function makes a GET request to the Apps Script app.
+3. In the Apps Script app, the function's inputs are converted to the appropriate JavaScript data types. The data type transformations take into account the user's locale settings to ensure compatibility with different languages.
+4. After the conversion, the data is processed by a function that we are trying to replace in Excel. In the demo, the function is intentionally kept very simple.
+5. The function's results are converted back to the user's locale. Then, the results are converted to XML format and sent back to Excel.
+6. The XML result from the `WEBSERVICE` Excel function is filtered using the `FILTERXML` Excel function, and the final result is displayed in the cell. XML was chosen because in the case of plain text, the GET response would need to be converted from text to a number format. Additionally, a plain text response limits the payload to only one item without additional processing.
 
 ## Functionality
 
