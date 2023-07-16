@@ -8,6 +8,17 @@ Have you ever been in a situation where you couldn't use VBA's UDF function? Whe
 
 Look no further. This project implements the basic functionality required to kickstart the replacement of a VBA UDF function in Excel. If your formula doesn't use multidimensional arrays as input, all you have to do is implement your VBA function's logic in JavaScript. As a result, instead of having a VBA function that executes on your hardware, you will have a JavaScript function that is executed on Google's hardware and returns only the results.
 
+## How it works
+
+The easiest way to understand how this solution works is to examen the [demo](demo/demo.xlsx) excel file. Under each cloud formula's row there is a formula breakdown hidden in a group.
+
+1. Apps Script app URL and formula's inputs are baked into one API like URL.
+2. This URL is an input for Excel's `WEBSERVICE` function, which is in Excel since Office 2010. The function makes Get request to Apps Script app.
+3. In the Apps Script app, the function's inputs are converted to proper JavaScript's data types. Data type transformations are mindful if specified about users locale settings for different language compatibility.
+4. After the conversion the data is processed by a function, that we are trying to replace in Excel. In the demo the function is intentionally very simple.
+5. The function's results are converted back to users locale. Then the results are converted to a XML and is sent back to Excel.
+6. The XML result from `WEBSERVICE` Excel function is filtered by `FILTERXML` Excel function and the final result is displayed in the cell. XML was chosen because in plain text case the Get response would need to be converted from text to number format. Also plain text response limits payload to only one item without additional processing.
+
 ## Functionality
 
 The main code file, `main.gs`, includes the following key features:
@@ -31,19 +42,19 @@ To use this code as a Cloud Function in Google Apps Script:
 1. Create a new Google Apps Script project in the Apps Script editor.
 2. Copy the code from the respective files into the corresponding files in your project.
 3. Deploy the script as a web app:
-   - Go to "Publish" > "Deploy as web app" in the Apps Script editor.
-   - Set the project version and configure the web app settings.
-   - Deploy the web app and obtain the URL.
+   * Go to "Publish" > "Deploy as web app" in the Apps Script editor.
+   * Set the project version and configure the web app settings.
+   * Deploy the web app and obtain the URL.
 4. Use the deployed URL as the endpoint for making HTTP GET requests to the Cloud Function.
 
 ## Additional Notes
 
-- The code includes test functions (`testNumberParserBasicFunctionality` and `testCreateXMLDocument`) that can be used to verify the basic functionality of the NumberParser class and the createXMLDocument function.
-- The code utilizes the XmlService class from the Google Apps Script library to create XML documents.
-- The `stripBraces` function removes curly braces from strings if present, and the `stringToArray` function converts strings to arrays based on the locale subtag.
-- The `localizedStringToNumber` function converts localized strings or arrays of strings to numbers based on the locale subtag.
-- The `formatNumberToLocale` function formats numbers to the specified locale and options.
-- The `someFunctionDoableInVBA` function performs an operation on arrays and numbers, similar to functionality in VBA.
+* The code includes test functions (`testNumberParserBasicFunctionality` and `testCreateXMLDocument`) that can be used to verify the basic functionality of the NumberParser class and the createXMLDocument function.
+* The code utilizes the XmlService class from the Google Apps Script library to create XML documents.
+* The `stripBraces` function removes curly braces from strings if present, and the `stringToArray` function converts strings to arrays based on the locale subtag.
+* The `localizedStringToNumber` function converts localized strings or arrays of strings to numbers based on the locale subtag.
+* The `formatNumberToLocale` function formats numbers to the specified locale and options.
+* The `someFunctionDoableInVBA` function performs an operation on arrays and numbers, similar to functionality in VBA.
 
 ## License
 
