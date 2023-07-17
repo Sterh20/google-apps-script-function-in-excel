@@ -64,25 +64,19 @@
 
 ## Optional commands
 
-1. Install typescript compiler
-
-    ```powershell
-    npm install tsc
-    ```
-
-2. Install eslint in `.env`
+1. Install eslint in `.env`
 
     ```powershell
     npm install eslint
     ```
 
-3. Create `.eselintconfig`
+2. Create `.eselintconfig`
 
     ```powershell
     .\node_modules\.bin\eslint --init
     ```
 
-4. Configure `.eslintconfig`
+3. Configure `.eslintconfig`
 
     ```powershell
     How would you like to use ESLint? · style       
@@ -95,7 +89,7 @@
     √ What format do you want your config file to be in? · JSON
     ```
 
-5. Install Prettier
+4. Install Prettier
 
     ```powershell
     npm install prettier

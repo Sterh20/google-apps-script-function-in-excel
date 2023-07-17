@@ -36,7 +36,7 @@ Push project changes to an App Script project
 clasp push
 ```
 
-Delete metadata from `demo.xlsx` file
+Delete metadata from the [demo.xlsx](demo/demo.xlsx) file
 
 ```powershell
 demo\delete_metadata_from_office_file_in_folder.ps1
