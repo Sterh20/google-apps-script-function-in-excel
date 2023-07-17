@@ -157,7 +157,7 @@ $WdRemoveDocType = "Microsoft.Office.Interop.Word.WdRemoveDocInfoType" -as [type
 $XlRemoveDocType = "Microsoft.Office.Interop.Excel.XlRemoveDocInfoType" -as [type]
 $PpRemoveDocType = "Microsoft.Office.Interop.PowerPoint.PpRemoveDocInfoType" -as [type]
 $wordFiles = Get-ChildItem -Path $path -include *.doc, *.docx -Recurse 
-$excelFiles = Get-ChildItem -Path $path -include *.xls, *.xlsx, *.xlsb -Recurse
+$excelFiles = Get-ChildItem -Path $path -include *.xls, *.xlsx, *.xlsb, *.xlsm -Recurse
 $powerpointfiles = Get-ChildItem -Path $path -include *.ppt, *.pptx -Recurse
 #------------------------------------------WORD FILES---------------------------------------------#
 if ($null -ne $wordFiles) {
